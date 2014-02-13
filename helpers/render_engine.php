@@ -551,12 +551,10 @@ class WYSIJA_help_render_engine extends WYSIJA_object {
         $array = explode('.', $var_string);
         $count_array = count ($array);
         if ($count_array > 1) {
-            $string_eval = "\$vars['".$array[0]."']";
-            for ($i=1; $i<$count_array; $i++) {
-                $string_eval .= "['".$array[$i]."']";
-            }
-            $string_eval .= " = \$value;";
-            eval($string_eval);
+            $tmp=$array['0'];
+            $vars[$tmp]=array();
+            unset($array['0']);
+            $this->_setValue( implode('.',$array),$value,$vars[$tmp]);           
         } else {
             $vars[$var_string] = $value;
         }
